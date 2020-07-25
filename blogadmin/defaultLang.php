@@ -11,7 +11,7 @@
 
 	// general config
 	// location of uploads folder
-	$Translation['ImageFolder'] = './images/';
+	$Translation['ImageFolder'] = 'images/';
 
 	// datalist.php
 	$Translation['quick search'] = "Quick Search";
