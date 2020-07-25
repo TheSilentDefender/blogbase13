@@ -1,25 +1,25 @@
-# PHP7 blogging application
-Easy blogging application written with PHP7! The application comes with a fulltext search functionality for posts and with customizable themes and languages. You can build your own theme if the default theme does not satisfy you.
+# [Un blog en PHP]
+A simple blog system for learning PHP !
+Developement in progress !
 
-**Notice:**  
-This project is currently **not in active development**, but the *master* branch is considered to be stable.
+## Preview
+Coming soon !
 
-![Default theme](https://nmnd.de/file/p/github-blog/default-theme.png)
+## Download and Installation
 
-## Administration interface
-![Administration interface](https://nmnd.de/file/p/github-blog/admin-template-2.png)
+To begin using this blog system :
+* In your web folder make sure you do not have a blog directory
+* Clone the repo on your web folder : `git clone https://github.com/nienfba/blog.git` or download it !
+* Create Database `blog` on phpmyadmin and import `sql/blog.sql`
+* Configure file config/config.php.dist and rename to config.php
 
-## Content editor
-![Content editor](https://nmnd.de/file/p/github-blog/admin-template-1.png)
+## Usage Admin
 
-## Installation
-1. Download the repository and extract it to the target directory where it should be installed.
-2. Create your MySQL database and import the `database.sql` file.
-3. Rename `core/configuration-example.php` to `core/configuration.php` and customize the configuration and set in any case the settings for the database connection.
-4. Navigate your browser to `/admin/auth.php` and authenticate with the default username `ChangeMe` and the password `changeme` (please note that the username is case-sensitive).
+* BackOffice :
+Login to http://localhost/blog/admin with email : login@user.fr and password : 123456
+* FrontOffice :
+Connect to http://localhost/blog/
 
-## Documentation
-You can find more information about the configuration and customization in the wiki:
+## Copyright and License
 
-* [GitHub](https://github.com/Nerdmind/Blog/wiki)
-* [Mirror](https://code.nerdmind.de/blog/wiki/)
+Copyright 2018 Nienfba Code released under the [MIT] license.
