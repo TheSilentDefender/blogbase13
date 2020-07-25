@@ -1,12 +1,11 @@
 <?php
-/**................................................................
- * @package eblog v 1.0
- * @author Faith Awolu 
- * Hillsofts Technology Ltd.            
- * (hillsofts@gmail.com)
- * ................................................................
- */
 session_start();
+include("includes/config.php");
+$_SESSION['login']=="";
+session_unset();
 session_destroy();
-header("location: sign-in.php");
+
 ?>
+<script language="javascript">
+document.location="index.php";
+</script>

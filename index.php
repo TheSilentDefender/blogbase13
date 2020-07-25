@@ -1,151 +1,117 @@
-<?php include "header.php"; ?>  
-<!-- End Site Header --> 
-  <!-- Start Hero Slider -->
-  <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
-    <ul class="slides">
-        <?php
-				$result = $db->prepare("SELECT * FROM slider");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-      <li class=" parallax" style="background-image:url(uploads/slider/<?php echo $row['file'];?>);"></li>
-                                <?php } ?>
+<?php 
+session_start();
+include('includes/config.php');
+
+    ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>News Portal | Home Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+   <?php include('includes/header.php');?>
+
+    <!-- Page Content -->
+    <div class="container">
+
+
+     
+      <div class="row" style="margin-top: 4%">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post -->
+<?php 
+     if (isset($_GET['pageno'])) {
+            $pageno = $_GET['pageno'];
+        } else {
+            $pageno = 1;
+        }
+        $no_of_records_per_page = 8;
+        $offset = ($pageno-1) * $no_of_records_per_page;
+
+
+        $total_pages_sql = "SELECT COUNT(*) FROM tblposts";
+        $result = mysqli_query($con,$total_pages_sql);
+        $total_rows = mysqli_fetch_array($result)[0];
+        $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+
+$query=mysqli_query($con,"select tblposts.id as pid,tblposts.PostTitle as posttitle,tblposts.PostImage,tblcategory.CategoryName as category,tblcategory.id as cid,tblsubcategory.Subcategory as subcategory,tblposts.PostDetails as postdetails,tblposts.PostingDate as postingdate,tblposts.PostUrl as url from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join  tblsubcategory on  tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.Is_Active=1 order by tblposts.id desc  LIMIT $offset, $no_of_records_per_page");
+while ($row=mysqli_fetch_array($query)) {
+?>
+
+          <div class="card mb-4">
+ <img class="card-img-top" src="admin/postimages/<?php echo htmlentities($row['PostImage']);?>" alt="<?php echo htmlentities($row['posttitle']);?>">
+            <div class="card-body">
+              <h2 class="card-title"><?php echo htmlentities($row['posttitle']);?></h2>
+                 <p><b>Category : </b> <a href="category.php?catid=<?php echo htmlentities($row['cid'])?>"><?php echo htmlentities($row['category']);?></a> </p>
+       
+              <a href="news-details.php?nid=<?php echo htmlentities($row['pid'])?>" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+              Posted on <?php echo htmlentities($row['postingdate']);?>
+           
+            </div>
+          </div>
+<?php } ?>
+       
+
+      
+
+          <!-- Pagination -->
+
+
+    <ul class="pagination justify-content-center mb-4">
+        <li class="page-item"><a href="?pageno=1"  class="page-link">First</a></li>
+        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?> page-item">
+            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>" class="page-link">Prev</a>
+        </li>
+        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?> page-item">
+            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?> " class="page-link">Next</a>
+        </li>
+        <li class="page-item"><a href="?pageno=<?php echo $total_pages; ?>" class="page-link">Last</a></li>
     </ul>
-  </div>
-  <!-- End Hero Slider --> 
-  <!-- Start Notice Bar -->
-  <div class="notice-bar">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-title"> <span class="notice-bar-title-icon hidden-xs"><i class="fa fa-calendar fa-3x"></i></span> <span class="title-note">Next</span> <strong>Upcoming Event</strong> </div>
-        <?php
-				$result = $db->prepare("SELECT * FROM events ORDER BY id DESC Limit 1");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-		<div class="col-md-3 col-sm-6 col-xs-6 notice-bar-event-title">
-          <h5><a href="event-detail.php?id=<?php echo $row['id'];?>"><?php echo $row['title']; ?></a></h5>
-          <span class="meta-data"><?php echo $row['venue']; ?></span> </div>
-        <div id="counter" class="col-md-4 col-sm-6 col-xs-12 counter" data-date="July 13, 2016">
-          <div class=""> <span ><?php echo $row['date']; ?></span> </div>
-          
-        
-		</div>
-		<?php } ?>
-        <div class="col-md-2 col-sm-6 hidden-xs"> <a href="events.php" class="btn btn-primary btn-lg btn-block">All Events</a> </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Notice Bar --> 
-  <!-- Start Content -->
-  <div class="main" role="main">
-    <div id="content" class="content full">
-      <div class="container">
-        <div class="row"> 
-          <!-- Start Featured Blocks -->
-          
-          <!-- End Featured Blocks --> 
+
         </div>
-        <div class="row">
-          <div class="col-md-8 col-sm-6"> 
-            <!-- Events Listing -->
-            <div class="listing events-listing">
-              <header class="listing-header">
-                <h3 class=" titles">Welcome to eBlog</h3>
-              </header>
-			  <?php
-				$result = $db->prepare("SELECT * FROM welcome");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){
-				?>  
-<?php echo $row['body']; ?>             
-			  <?php } ?>
-            </div>
-            <div class="spacer-30"></div>
-            <!-- Latest News -->
-            <div class="listing post-listing">
-              <header class="listing-header">
-                <h3 class="titles">Latest News</h3></header>
-              <section class="listing-cont">
-                <ul>
-				<li class="item post">
-                    <div class="row">
-                      <div class="col-md-12">
-					  <?php
-				$result = $db->prepare("SELECT * FROM news ORDER BY id DESC Limit 3");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-                        <div class="post-title">
-                          <h2 class=" titles"><a href="news_post.php?id=<?php echo $row['id'];?>"><?php echo $row['news_title']; ?></a></h2>
-                          <span class="meta-data"><i class="fa fa-calendar"></i> on <?php echo $row['date']; ?></span>
-						 <p><?php echo strip_tags(substr($row['news_detail'],0,180)) ;?>...</p>
-						 </div>
-						<?php } ?>
-                      </div>
-                    </div>
-					 <center> -- <a href="news-updates.php">All News</a> --</center>
-                  </li>
-                </ul>
-              </section>
-			 </div>
-          </div>
-          <!-- Start Sidebar -->
-          <div class="col-md-4 col-sm-6">
-            <!-- Latest Sermons -->
-            <div class="listing sermons-listing">
-              <header class="listing-header">
-              </header>
-              <section class="listing-cont">
-                <ul>
-                  <li class="item sermon featured-sermon"> <span class="date"></span>
-                    <h4><a href="#">Like Us on Facebook</a></h4>
-					<?php
-                            //include('../connect.php');
-				$result = $db->prepare("SELECT * FROM settings");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){
-               ?> 
-                    <div class="featured-sermon-video">
-                      <!--Facebook Page-->
-                      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fcodeprojectsdotorg%2F&tabs=timeline&width=214&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="214" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-								</div> <?php } ?>
-                  </li>
-                  <li class="item post">
-                    <div class="row">
-                      <div class="col-md-12"> <a href="donate.php" class="media-box"> <img src="images/giving.jpg" alt="" class="img-thumbnail"> </a></div>
-                     </div>
-                  </li>
-				   <li class="item post">
-                    <div class="row">
-                      <div class="col-md-12"> <a href="gallery.php" class="media-box"> <img src="images/gallery.jpg" alt="" class="img-thumbnail"> </a></div>
-                     </div>
-                  </li>
-                 </ul>
-              </section>
-            </div>
-          </div>
-        </div>
+
+        <!-- Sidebar Widgets Column -->
+      <?php include('includes/sidebar.php');?>
       </div>
+      <!-- /.row -->
+
     </div>
-  </div>
-  <!-- Start Featured Gallery -->
-  <div class="featured-gallery">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-3">
-          <h4>Updates from our gallery</h4>
-          <a href="gallery.php" class="btn btn-default btn-lg">More Galleries</a> </div>
-		  <?php
-				$result = $db->prepare("SELECT * FROM gallery ORDER BY id DESC Limit 3");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-        <div class="col-md-3 col-sm-3 post format-image"> <a href="uploads/<?php echo $row['file'];?>" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="uploads/<?php echo $row['file'];?>" alt=""> </a> </div>
-        <?php } ?>
-		</div>
-    </div>
-  </div>
-  <!-- End Featured Gallery --> 
-  <!-- Start Footer -->
-  <?php include "footer.php"; ?>
+    <!-- /.container -->
+
+    <!-- Footer -->
+      <?php include('includes/footer.php');?>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ 
+</head>
+  </body>
+
+</html>

@@ -1,6 +1,0 @@
-                         : : : : : LOGIN DETAILS : : : : : 
-
-ADMIN PANEL LOGIN:
-
-Username: admin
-Password: admin
