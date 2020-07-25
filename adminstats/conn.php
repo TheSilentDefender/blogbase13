@@ -5,8 +5,8 @@
 // DB CONNECT INFO
 $db_host = "localhost";
 $db_name = "base13";
-$db_user = "root";
-$db_pw = "";
+$db_user = "user";
+$db_pw = "password";
 
 // DB TABLE INFO
 $GLOBALS['hits_table_name'] = "page_hits";
