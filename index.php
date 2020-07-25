@@ -1,120 +1,81 @@
-<?php require('includes/config.php'); ?>
-    <!DOCTYPE html>
-    <html>
+<?php
+#===============================================================================
+# INCLUDE: Initialization
+#===============================================================================
+require 'core/application.php';
 
-    <head>
-        <title>softAOX - Blog</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name='keywords' content='softaox, blog, dynmaic blog, create blog in php, mysql blog'>
-        <meta name='description' content='softaox blog dynamic creation for post'>
-        <meta name='copyright' content='softAOX'>
-        <meta name='language' content='en'>
-        <meta name='robots' content='index,follow'>
-       <!--css-->
-        <link href="assets/css/master.css" rel="stylesheet" type="text/css">
-        <!--jquery-->
-        <link rel="icon" type="image/png" href="assets/images/favicon.ico" sizes="16x16">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="assets/js/general.js" type="text/javascript"></script>
-    </head>
+#===============================================================================
+# Item base directory paths
+#===============================================================================
+$PAGEPATH = Application::get('PAGE.DIRECTORY');
+$POSTPATH = Application::get('POST.DIRECTORY');
+$USERPATH = Application::get('USER.DIRECTORY');
 
-    <body class="bg">
-        <div class="top-line">
-        </div>
-        <!--end of line-->
-        <div class="top-bar">
-            <div class="logo">
-                <a href="./"><img src="assets/images/softaox_blog.svg" /></a>
-            </div>
-            <!--end of logo-->
+#===============================================================================
+# ROUTE: Item
+#===============================================================================
+Router::add("{$PAGEPATH}/([^/]+)/", function($param) { require 'core/include/page/main.php'; });
+Router::add("{$POSTPATH}/([^/]+)/", function($param) { require 'core/include/post/main.php'; });
+Router::add("{$USERPATH}/([^/]+)/", function($param) { require 'core/include/user/main.php'; });
 
-            <?php include ('includes/navbar.php'); ?>
-                <!--end navbar -->
+#===============================================================================
+# ROUTE: Item overview
+#===============================================================================
+Router::add("{$PAGEPATH}/", function() { require 'core/include/page/list.php'; });
+Router::add("{$POSTPATH}/", function() { require 'core/include/post/list.php'; });
+Router::add("{$USERPATH}/", function() { require 'core/include/user/list.php'; });
 
-        </div>
-        <!--end of top bar-->
-        <div class="all-container">
-            <div class="row nopadding">
+#===============================================================================
+# REDIRECT: Item (trailing slash)
+#===============================================================================
+Router::addRedirect("{$PAGEPATH}/([^/]+)", Application::getPageURL('$1/'));
+Router::addRedirect("{$POSTPATH}/([^/]+)", Application::getPostURL('$1/'));
+Router::addRedirect("{$USERPATH}/([^/]+)", Application::getUserURL('$1/'));
 
-                <div class="col-md-12 nopadding">
-                    <div class="col-md-7 nopadding">
-                        <div class="blog-listing">
+#===============================================================================
+# REDIRECT: Item overview (trailing slash)
+#===============================================================================
+Router::addRedirect("{$PAGEPATH}", Application::getPageURL());
+Router::addRedirect("{$POSTPATH}", Application::getPostURL());
+Router::addRedirect("{$USERPATH}", Application::getUserURL());
 
-                            <?php       
-					try {
+#===============================================================================
+# ROUTE: Home
+#===============================================================================
+Router::add('', function() {
+	require 'core/include/home.php';
+});
 
-					$pages = new Paginator('4','p');
+#===============================================================================
+# ROUTE: Feed
+#===============================================================================
+Router::add('feed/(?:(page|post)/)?', function($param = NULL) {
+	require 'core/include/feed/main.php';
+});
 
-					$stmt = $db->query('SELECT postID FROM sa_posts');
+#===============================================================================
+# ROUTE: Search
+#===============================================================================
+Router::add('search/', function() {
+	require 'core/include/search/main.php';
+});
 
-					//pass number of records to
-					$pages->set_total($stmt->rowCount());
+#===============================================================================
+# REDIRECT: Feed (trailing slash)
+#===============================================================================
+Router::addRedirect('feed(/(?:page|post))?', Application::getURL('feed$1/'));
 
-					$stmt = $db->query('SELECT * FROM sa_posts ORDER BY postID DESC '.$pages->get_limit());
-					while($row = $stmt->fetch()){
+#===============================================================================
+# REDIRECT: Search (trailing slash)
+#===============================================================================
+Router::addRedirect('search', Application::getURL('search/'));
 
-                    echo '<div class="blog-listing-one">';
+#===============================================================================
+# REDIRECT: Favicon
+#===============================================================================
+Router::addRedirect('favicon.ico', Application::getTemplateURL('rsrc/favicon.ico'));
 
-			           echo '<h2><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></h2>'; 
-                       echo  '<div class="blog-listing-one-img">';
-                        echo  '<a href="'.$row['postSlug'].'"><img src="admin/uploads/'.$row['image'].'" width="100%"></a>';
-                        echo '</div>';
-
-                        echo'<div class="blog-listing-one-like-bookmark">';
-                            echo '<ul>';
-                              echo '<li><i class="fa fa-calendar" aria-hidden="true"></i><span> On:</span> '.date('jS M Y', strtotime($row['postDate'])).'</li>';
-
-							  $stmt2 = $db->prepare('SELECT catTitle, catSlug FROM sa_categories, sa_post_categories WHERE sa_categories.catID = sa_post_categories.catID AND sa_post_categories.postID = :postID');
-								$stmt2->execute(array(':postID' => $row['postID']));
-
-								$catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
-								$links = array();
-								foreach ($catRow as $cat)
-								{
-								    $links[] = "<a href='c-".$cat['catSlug']."'>".$cat['catTitle']."</a>";
-								}
-
-							   echo '<li><i class="fa fa-folder-open"></i><span> Category: </span>'.implode(", ", $links).'</li>';
-
-                           echo '</ul>';
-                        echo '</div>';
-
-                        echo '<p>'.$row['postDesc'].'</p>';
-
-                        echo '<a href="'.$row['postSlug'].'" class="btn-readmore">Continue Reading</a>'; 
-
-                     echo '</div>';
-
-					}
-
-					echo $pages->page_links();
-
-				} catch(PDOException $e) {
-				    echo $e->getMessage();
-				}
-
-		          ?>
-                        </div>
-                        <!--end of blog listing-->
-                    </div>
-                    <!--end of col-md-7-->
-
-                    <div class="col-md-5 nopadding padding-left">
-                        <div id='sidebar'>
-                            <?php require('sidebar.php'); ?>
-                        </div>
-                    </div>
-
-                    <!--end of col-05-->
-                </div>
-                <!--end of col-md-12-->
-            </div>
-            <!--end of row-->
-        </div>
-        <!--end of all container-->
-        <?php include ('includes/footer.php'); ?>
-            <!--end of footer-->
-    </body>
-
-    </html>
+#===============================================================================
+# Execute router and route requests
+#===============================================================================
+Router::execute(parse_url(HTTP::requestURI(), PHP_URL_PATH));
