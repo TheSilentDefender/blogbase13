@@ -1,339 +1,275 @@
-<?php
-session_start();
-ob_start();
-include('config.php');
-$n_id=$_SESSION['n_id'];
-
-$val=''; 
- if(isset($_POST['submit']))
-  {
-	   if(!empty($_POST['name']))
-	    { 
-		$val=$_POST['name']; 
-		} 
-		else
-		 {
-			  $val='';
-		}
- }
-  ?>
-
-<!doctype html>
-<html>
+<?php require("libs/fetch_data.php");?>
+<!DOCTYPE html>
+<html lang="zxx">
 <head>
+	<title><?php getwebname("titles"); echo"|"; gettagline("titles");?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link id="browser_favicon" rel="shortcut icon" href="blogadmin/images/<?php geticon("titles"); ?>">
+	<meta charset="utf-8" name="description" content="<?php getshortdescription("titles");?>">
+	<meta name="keywords" content="<?php getkeywords("titles");?>" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-  <title>e-NEWSPAPER</title>
- <!--link bootstrap-->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link  rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <script src="js/jquery_library.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
- <link rel="stylesheet" href="mystyle.css">
-
- <style>
-#content
-{
-padding:50px;
-width:500px; border:1px solid #000;
-float:left;
-}
-#clear
-{ clear:both; }
-#box
-{
-float:left;
-margin:0 0 20px 0;
-text-align:justify;
-}
-</style>
-<!--search-->
-<script type="text/javascript" src="jquerysearch.min.js"></script>
-
-<script type="text/javascript">
-	function fill(Value)
-	{
-	$('#name').val(Value);
-	$('#display').hide();
-	}
-	
-	$(document).ready(function(){
-		$("#name").keyup(function() {
-		var name = $('#name').val();
-		if(name=="")
-		{
-		$("#display").html("");
+		function hideURLbar() {
+			window.scrollTo(0, 1);
 		}
-		else
-		{
-		$.ajax({
-		type: "POST",
-		url: "search.php",
-		data: "name="+ name ,
-		success: function(html){
-		$("#display").html(html).show();
-		}
-	});
-	}
-	});
-});
-</script>
-   
-<!------------//script for read more---//****---------->
- <script type="text/javascript">
-$(document).ready(function(){
-	var maxLength = 300;
-	$(".show-read-more").each(function(){
-		var myStr = $(this).text();
-		if($.trim(myStr).length > maxLength){
-			var newStr = myStr.substring(0, maxLength);
-			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
-			$(this).empty().html(newStr);
-			$(this).append(' <a href="index.php?page=read" class="read-more">read more...</a>');
-			$(this).append('<span class="more-text">' + removedStr + '</span>');
-		}
-	});
-	$(".read-more").click(function(){
-		$(this).siblings(".more-text").contents().unwrap();
-		$(this).remove();
-	});
-});
-</script>
-
-
-<style type="text/css">
-div.goog-te-gadget-simple{border-radius:5px;background-color:#F7575A;}
-a.goog-te-menu-value{text-decoration:none;}
-a.goog-te-menu-value > span{color:#ffffff;}
-
-    .show-read-more .more-text{
-        display: none;
-    }
-</style> 
- <!----end of read more script------> 
+	</script>
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="css/jquery.desoslide.css">
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/fontawesome-all.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+	rel="stylesheet">
 </head>
 
 <body>
-
-<div class="container-fluid">
-	<div class="row">
-    <div class="col-sm-1"></div>
-		<div class="col-sm-4" style="margin-top:10px;height:80px;">
- 		 <h2 style="font-family:allan;font-size:50px;">e-<font color="red" style="font-family:yesteryear;">NEWSPAPER</font></h2>
-		</div> 
-		<div class=" col-sm-offset-3 col-sm-4" style="margin-top:33px;height:80px;">
-      
-		 <a href="#"><i class="fa fa-apple dropbtn1"></i></a>
-		 <a href="#"><i class="fa fa-android dropbtn2"></i></a>
-		 <a href="#"><i class="fa fa-facebook dropbtn3"></i></a>
-		 <a href="#"><i class="fa fa-google-plus dropbtn4"></i></a>
- 		 <a href="#"><i class="fa fa-twitter dropbtn5"></i></a>
- 		 <a href="#"><i class="fa fa-youtube dropbtn6"></i></a>
- 		 <a href="#"><i class="fa fa-rss dropbtn7"></i></a>
-       
- 	</div>	
-	 
-      
-   </div>
-</div>
-<div class="container-fluid">
-  	<div class="row">
-    	<div class="col-sm-12">
-        	<div class="col-sm-3">
-            <div style="margin:0px auto;">
-                <div id="google_translate_element"></div>
-				<div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        
-		
-            </div>
-            </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-5" style="float:right;margin:0px 0px;">
-           <form method="post" action="">
-  				 <input type="text"  class="form-control"
-				 style="width:60%;" autocomplete="off" name="name" id="name" value="<?php echo $val;?>" placeholder="Search..." class="fa fa-search dropbtn"/>
-                 <button type="submit" class="btn btn-secondary" name="submit" id="submit"><font color="#000000"><i class="fa fa-fw fa-search"></i>Search</font></button>
-   			<div id="display" style="position:absolute;overflow:auto;z-index:1;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);"></div> 
-           </form>
-   				
-            </div>
-          </div>
+	<?php include("header.php");?>
+	<?php include("banner.php");?>
+	<section class="bottom-slider">
+		<div class="course_demo1">
+			<ul id="flexiselDemo1">
+				<?php getbottomsliderposts("blogs");?>
+			</ul>
 		</div>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="embed-responsive embed-responsive-21by9">
+							<iframe src="https://www.youtube.com"></iframe>
+						</div>
+					</div>
 
- </div>	
- 
-        	<?php
-			@$x= $_REQUEST['page'];
-			include('header.php');?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/main-->
+	<section class="main-content-w3layouts-agileits">
+		<div class="container">
+			<div class="row">
+				<!--left-->
+				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+					<!--grid blogs below-->
+					<div class="blog-girds-sec">
+						<div class="row">
+							<?php getblogridposts("blogs");?>
+							<!--bloggrids-->
+						</div>
+					</div>
+				</div>
+				<!--//left-->
+				<!--right-->
+				<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+					<div class="right-blog-info text-left">
+						<h4><strong>Categories</strong></h4>
+						<ul class="list-group single">
+							<?php countcategories();?>
+						</ul>
+						<div class="tech-btm widget_social">
+							<h4>Stay Connected</h4>
+							<ul>
 
-       
-			<?php 
-				if($x=="")
-				{
-				include('slider.php');
-				}
-				?>
-        
-       
-<div class="container" style="margin-top:10px;">
-  <div class="row">
-  <div class="col-sm-1"></div>
-    <div class="col-sm-7">
-		<?php 
-       if(isset($_POST['submit'])) 
-       {
-        if(!empty($_POST['name']))
-		 {
-			include('searchDetail.php');
-		 }
-	   }
-			 
-	 	@$x= $_REQUEST['page'];
-		if($x=="")
-		{
-			$userQ=mysql_query("select * from  news ORDER BY ID DESC limit 10") or die(mysql_error());
+								<li>
+									<a class="twitter" href="<?php getlinks("links","twitter");?>">
+										<i class="fab fa-twitter"></i>
+										<span class="count"></span> Twitter</a>
+									</li>
+									<li>
+										<a class="facebook" href="<?php getlinks("links","facebook");?>">
+											<i class="fab fa-facebook-f"></i>
+											<span class="count"></span> Facebook</a>
+										</li>
+										<li>
+											<a class="dribble" href="<?php getlinks("links","dribble");?>">
+												<i class="fab fa-dribbble"></i>
 
-			while($res=mysql_fetch_assoc($userQ))
-			{
-			$cat=$userRow['category'];
-			$sub_cat=$userRow['subcategory'];
-			
-			$cat=mysql_query("select * from category where id='".$res['category']."'");
-			$resCat=mysql_fetch_assoc($cat);
-			$cat_name=$resCat['category'];
-			//echo $cat_name;
-			
-			$subcat=mysql_query("select * from subcategory where id='".$res['subcategory']."'");
-			$resSubCat=mysql_fetch_assoc($subcat);
-			$Sub_cat_name=$resSubCat['subcategory'];
-			
-			$imgPath="assets/images/".$cat_name."/".$Sub_cat_name."/".$res['pic1'];
-			$imgPath1="assets/images/".$cat_name."/".$Sub_cat_name."/".$res['pic2'];
-			//echo $imgPath;			
-			 
-			 echo "<h1 style='color:red'>".$res['product_name']."</h1>";
-			 echo "<img  src='$imgPath' style='width:600px;height:300px;' class='img-thumbnail'/>";
-			 echo "<img  src='$imgPath1' style='width:600px;height:300px;' class='img-thumbnail'/>";
-			 echo "<p>".$res['description']."</p>";          
-			}
-		}
-		
-		elseif($x=="headlines")
-		{
-		 include('headlines.php');
-		}
-		elseif($x=="archive")
-		{
-		 include('archive.php');
-		}
-		elseif($x=="contact")
-		{
-		 include('contact.php');
-		}
-		elseif($x=="gallery")
-		{
-		 include('gallery.php');
-		}
-		elseif($x=="changePass")
-		{
-		 include('changePass.php');
-		}
-		elseif($x=="category")
-		{
-		 include('category.php');
-		}
-		elseif($x=="login")
-		{
-		 include('login.php');
-		}
-		elseif($x=="registration")
-		{
-		 include('registration.php');
-		}
-		
-		elseif($x=="flip")
-		{
-		?>
-			<div style="margin-top:auto">
-         <?php
-			include('flip/flipPaper/flip.php');
-			echo "</div>";
+												<span class="count"></span> Dribble</a>
+											</li>
+											<li>
+												<a class="pin" href="<?php getlinks("links","pinterest");?>">
+													<i class="fab fa-pinterest"></i>
+													<span class="count"></span> Pinterest</a>
+												</li>
 
-		
-		}
-		elseif($x=="read")
-		{
-			include("readmore.php");
-			
-		}
-	?>
-    <br>
-    </div>
-    
-	   <?php  
-	   if($x=="")
-	   { 
-	?>
+											</ul>
+										</div>
+										<div class="tech-btm">
+											<h4>Older Posts</h4>
+											<?php getolderposts("blogs");?>
+											<!--olderpostsendhere-->
+										</div>
+									</div>
+								</aside>
+								<!--//right-->
+							</div>
+						</div>
+					</section>
+					<!--//main-->
+					<!--/middle-->
+					<section class="middle-sec-agileinfo-w3ls">
+						<div class="container">
+							<div class="row inner-sec">
+								<div class="col-md-4 news-left">
+									<ul id="demo1_thumbs" class="list-inline">
+										<!--get latest four-->
+										<?php getfour("blogs");?>
+									</ul>
+								</div>
+								<div id="demo1_main_image" class="col-md-8  news-right"></div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
 
-	<div class="col-sm-3" style="margin-top:75px">
-		<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/E9AUCNvYLTg?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
-		
-		<div style="position:relative;height:0;padding-bottom:56.25%;margin-top:20px"><iframe src="https://www.youtube.com/embed/8Gj5fxkJCgs?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>	
-         
-		 <div style="position:relative;height:0;padding-bottom:56.25%;margin-top:20px;margin-bottom:10px"><iframe src="https://www.youtube.com/embed/0VMBt7Jwolg?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
-		 <div class="panel-heading" style="border-radius:0px;background-color:red;color:white;text-align:center">LATEST NEWS
-         </div>
-            <div class="panel-body" style="border:1px solid #D5D4D4;">
-            	<?php include('latestNews.php');?>
-   			 </div>
-             
-         <div class="panel-heading" style="border-radius:0px;background-color:red;color:white;text-align:center;"> VIDEOS
-       </div>
-              <div class="panel-body" style="border:1px solid red;">
-              	<?php include('video.php');?>
-   			 </div>
-    </div>
-	   <?php } ?>
-             
-  </div>
-			
-<div class="col-sm-1"></div>
-</div>
+					</section>
+					<!--//middle-->
+					<!---->
+					<section class="main-content-w3layouts-agileits">
+						<div class="container">
+							<div class="row">
+								<!--left-->
+								<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+									<?php getonelatest("blogs");?>
+								</div>
+								<!--//left-->
+								<!--right-->
+								<aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
+									<div class="tech-btm">
+										<h4>Editor's Choice</h4>
+										
+										<?php geteditorschoice("editors_choice"); ?>
+										
+									</div>
+									
+								</aside>
+								<!--//right-->
+							</div>
+						</div>
+					</section>
+					<!--//main-->
+					<?php include("footer.php");?>
+					<!---->
+					<!-- js -->
+					<script src="js/jquery-2.2.3.min.js"></script>
+					<!-- //js -->
+					<!-- desoslide-JavaScript -->
+					<script src="js/jquery.desoslide.js"></script>
+					<script>
+						$('#demo1_thumbs').desoSlide({
+							main: {
+								container: '#demo1_main_image',
+								cssClass: 'img-responsive'
+							},
+							effect: 'sideFade',
+							caption: true
+						});
+					</script>
+
+					<!-- requried-jsfiles-for owl -->
+					<script>
+						$(window).load(function () {
+							$("#flexiselDemo1").flexisel({
+								visibleItems: 3,
+								animationSpeed: 1000,
+								autoPlay: true,
+								autoPlaySpeed: 3000,
+								pauseOnHover: true,
+								enableResponsiveBreakpoints: true,
+								responsiveBreakpoints: {
+									portrait: {
+										changePoint: 480,
+										visibleItems: 1
+									},
+									landscape: {
+										changePoint: 640,
+										visibleItems: 2
+									},
+									tablet: {
+										changePoint: 768,
+										visibleItems: 3
+									}
+								}
+							});
+
+						});
+					</script>
+					<script>
+						$(window).load(function () {
+							$("#flexiselDemo2").flexisel({
+								visibleItems: 3,
+								animationSpeed: 1000,
+								autoPlay: true,
+								autoPlaySpeed: 3000,
+								pauseOnHover: true,
+								enableResponsiveBreakpoints: true,
+								responsiveBreakpoints: {
+									portrait: {
+										changePoint: 480,
+										visibleItems: 1
+									},
+									landscape: {
+										changePoint: 640,
+										visibleItems: 2
+									},
+									tablet: {
+										changePoint: 768,
+										visibleItems: 3
+									}
+								}
+							});
+
+						});
+					</script>
+					<script src="js/jquery.flexisel.js"></script>
+					<!-- //password-script -->
+					<!--/ start-smoth-scrolling -->
+					<script src="js/move-top.js"></script>
+					<script src="js/easing.js"></script>
+					<script>
+						jQuery(document).ready(function ($) {
+							$(".scroll").click(function (event) {
+								event.preventDefault();
+								$('html,body').animate({
+									scrollTop: $(this.hash).offset().top
+								}, 900);
+							});
+						});
+					</script>
+					<!--// end-smoth-scrolling -->
+
+					<script>
+						$(document).ready(function () {
+							
+							var defaults = {
+							  			containerID: 'toTop', // fading element id
+										containerHoverID: 'toTopHover', // fading element hover id
+										scrollSpeed: 1200,
+										easingType: 'linear' 
+									};
+									
+
+									$().UItoTop({
+										easingType: 'easeOutQuart'
+									});
+
+								});
+							</script>
+							<a href="#home" class="scroll" id="toTop" style="display: block;">
+								<span id="toTopHover" style="opacity: 1;"> </span>
+							</a>
+
+							<!-- //Custom-JavaScript-File-Links -->
+							<script src="js/bootstrap.js"></script>
 
 
-<div class="col-sm-12" style="text-align:center" id="footer">
-	<?php include('footer.php'); ?>
-</div>
-</body>
-</html>
-<?php 
-ob_end_flush(); 
-?>
+						</body>
 
-<style>
-div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 150px;
-}
-
-div.gallery:hover {
-    border: 1px solid #777;
-}
-
-div.gallery img {
-    width: 100%;
-    height: auto;
-}
-
-div.desc {
-    padding: 15px;
-    text-align: center;
-}
-</style>
+						</html>

@@ -1,137 +1,96 @@
-<?php
-/*
-extract($_POST);
-if(isset($signup))
-{
-	$que = "select * from register where email='$email'";
-$run = mysql_query ( $que );
+<!--Header-->
+<header>
+		<div class="top-bar_sub_w3layouts container-fluid">
+			<div class="row">
+				<div class="col-md-4 logo text-left">
+					<a class="navbar-brand" href="index.php">
+						<i class="fab fa-linode"></i> BLOG SITE</a>
+				</div>
+				<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+					<span>Welcome Back!</span>
+					<span class="mx-lg-4 mx-md-2  mx-1">
+						<a href="blogadmin/index.php">
+							<i class="fas fa-lock"></i> <strong>Sign In</strong></a>
+					</span>
+					<span>
+						<a href="blogadmin/membership_signup.php">
+							<i class="far fa-user"></i> <strong>Register</strong></a>
+					</span>
+				</div>
+				<div class="col-md-4 log-icons text-right">
 
-$count = mysql_num_rows ( $run );
-if ($count == 0)
-	{
-	
-	$query = "insert into register set fname='$fname',lname='$lname',email='$email',mobile='$mob',address='$address',area='$area',city='$city',state='$state',country='$country',post='$post',password='$pass',confirm='$cpass',new_letter='$post',date=now(),status='inactive'";
-	
-	$run = mysql_query ( $query );
-	$_SESSION['email']=$email;
-header('location:index.php');
-	//echo 'Added Successfully !';
-	
-}
- else {
-	header('location:index.php');
-	echo 'Already Exist';
-	}
+					<ul class="social_list1 mt-3">
 
-}
-*/
+						<li>
+							<a href="<?php getlinks("links","facebook");?>" class="facebook1 mx-2" >
+								<i class="fab fa-facebook-f"></i>
 
-?>
-<nav class="navbar navbar-inverse" style="background:#000000;border:0px">
-    <div class="container-fluid">
-        	  <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-     
-    </div>
+							</a>
+						</li>
+						<li>
+							<a href="<?php getlinks("links","twitter");?>" class="twitter2">
+								<i class="fab fa-twitter"></i>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
-         <ul class="nav navbar-nav" id="header" style="padding:0px 1px;"> 
-         <li><a href="index.php" class="black" style='color:#fff'>Home</a></li>      
-           <?php 
-		  		$que = "select * from category where status='active'";
-				$res = mysql_query ($que) or die (mysql_error());
-				while($r=mysql_fetch_array($res))
-				{ $id=$r['id'];
-          
-           	echo "<li class='dropdown' style='color:#fff'>
-			<a href='index.php?page=category&cid=$cid' style='color:#fff' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>".$r['category']."<span class='caret'></span></a>"; 
-		  ?>
-          <ul class="dropdown-menu" style='color:#fff'>
-          
-          <?php 
-		  		
-					
-					$que1="select * from subcategory where category='$id' and status='active'";
-					$res1=mysql_query ($que1) or die (mysql_error());
-					while($r1=mysql_fetch_array($res1))
-					{
-						$id=$r1['id'];
-						echo "<li role='presentation'><a  role='menuitem' tabindex='-1' href='index.php?page=headlines&id=$id'>".$r1['subcategory']."</a></li>";
-					}
-				
-			
-		  ?>
-           
-            <!--<li role="separator" class="divider"></li>
-            <li><a href="#">Educational</a></li>
-            <li role="separator" class="divider"></li>-->
-           
-          </ul>
-          <?php
-				}
-			?>
-          </li>
-         	<li><a href="index.php?page=flip" class="black" style='color:#fff'>Flip News</a></li>
-           <li><a href="index.php?page=archive" class="black" style='color:#fff'>Archive</a></li>
-           <li><a href="index.php?page=contact" class="black" style='color:#fff'>Contact Us</a></li>
-		   <li><a href="index.php?page=gallery" class="black" style='color:#fff'>Image Gallery</a></li>	
-       </ul>
-                    
+							</a>
+						</li>
+						<li>
+							<a href="<?php getlinks("links","dribble");?>" class="dribble3 mx-2">
+								<i class="fab fa-dribbble"></i>
+							</a>
+						</li>
+						<li>
+							<a href="<?php getlinks("links","pinterest");?>" class="pin">
+								<i class="fab fa-pinterest-p"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-      
-	 <ul class="nav navbar-nav navbar-right" style="padding:6px;">;
-       <?php if(isset($_SESSION['email']))
-	   {?>
-			<li class='dropdown'>
-		<a href='' class='dropdown-toggle' style='color:#fff' data-toggle='dropdown' role='button' aria-haspopup='true'
-		aria-expanded='false'>Hello <?php echo $_SESSION['email']; ?><span class='caret'></span></a>			
-			
-				<ul class="dropdown-menu" style="background:red">
-				 
-		   <li>
-			<a href='logout1.php'  style='text-decoration:none;color:white;'>Logout</a>
-		   </li>&nbsp; 
-		   <li>
-			<a href='index.php?page=changePass' style='text-decoration:none;color:white;'>Change Password</a>
-		   </li>
-			</ul>
-		</li>	
-		   
-		  <?php  
-	   }
-	   else{
-		   ?>
-		   	<li><a href="index.php?page=login" class="black" style='color:#fff'>Login</a></li>
-			<li><a href="index.php?page=registration" class="black" style='color:#fff'>Registration</a></li>		
-		   
-		   <?php 
-	   }
-	   ?>
-	   
-	   
-        
-        <!--<li style="padding-top:5px"><input type="search" style="width:35px;" class="form-control" placeholder="Search Article.."></li>
--->
-     </ul>  
+			<div class="header_top" id="home">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+				   </button>
 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<div class="container">
- 
 
-    
-  
-</div>
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/jquery.validate.js"></script>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="index.php">Home
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="about.php">About</a>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+								    aria-expanded="false">
+									Categories
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="#"></a>
+									<?php getcategoriesmenu("blog_categories"); ?>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="contact.php">Contact</a>
+							</li>
 
- <script src="js/jquery.validate.min.js"></script>
-  <script src="js/validation.js"></script>
+						</ul>
+							<form action="search.php" method="post" class="form-inline my-2 my-lg-0 header-search" name="form">
+								<input class="form-control mr-sm-2" type="search" placeholder="Search here..." required="yes" type="text" name="search[keyword]">
+								<button class="btn btn1 my-2 my-sm-0" type="submit" name="submit"><i class="fas fa-search"></i></button>
+							</form>
+		
+						
+
+					</div>
+				</nav>
+
+			</div>
+	</header>
+	<!--//header-->

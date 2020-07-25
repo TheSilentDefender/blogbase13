@@ -1,98 +1,150 @@
-<?php
-extract($_POST);
+<?php require("libs/fetch_data.php");?>
+<!DOCTYPE html>
+<html lang="zxx">
 
-$statusMsg = '';
-if(isset($send))
-{
-    // Get the submitted form data
-    $email = ($email);
-    $name = ($name);
-    $subject = ($subject);
-    $message = ($message);
-    
-    // Check whether submitted data is not empty
-    if(!empty($email) && !empty($name) && !empty($subject) && !empty($message))
-	{
-			   // Check for a proper First name
-		  if (!empty($name))
-			  {
-				$pattern = "/^[a-zA-Z0-9\_]{2,20}/";//checks if the name is valid characters
-					if (preg_match($pattern,$name))
-					{
-						$name = ($name);
-					}
-					else
-					{
-						$statusMsg = 'Your Name can only contain _, 1-9, A-Z or a-z 2-20 long.';
-					}
-				}
-			
-        if(filter_var($email, FILTER_VALIDATE_EMAIL) === false)
-			{
-				$statusMsg = 'Please enter your valid email.';	
-			}
-		else
-		{
-            // Recipient email
-            $toEmail = 'your_email@gmail.com';
-            $emailSubject = 'Contact Request Submitted by '.$name;
-            $htmlContent = '<h2>Contact Request Submitted</h2>
-                <h4>Name</h4><p>'.$name.'</p>
-                <h4>Email</h4><p>'.$email.'</p>
-                <h4>Subject</h4><p>'.$subject.'</p>
-                <h4>Message</h4><p>'.$message.'</p>';
-            
-            // Set content-type header for sending HTML email
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            
-            // Additional headers
-            $headers .= 'From: '.$name.'<'.$email.'>'. "\r\n";
-            
-            // Send email
-            if(mail($toEmail,$emailSubject,$htmlContent,$headers))
-			{
-				mysql_query("insert into contact values('','$name','$email','$mob','$subject','$message',now())");	
-                $statusMsg = 'Your contact request has been submitted successfully !';
-              
-            }else{
-                $statusMsg = 'Your contact request submission failed, please try again.';
-               
-            }
-        }
-    }
-	else
-	{
-        $statusMsg = 'Please fill all the fields.';
-       
-    }
-}
-?>
+<head>
+	<title><?php getwebname("titles"); echo"|"; gettagline("titles");?> | Contact</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link id="browser_favicon" rel="shortcut icon" href="blogadmin/images/<?php geticon("titles"); ?>">
+	<meta charset="utf-8" name="description" content="<?php getshortdescription("titles");?>">
+	<meta name="keywords" content="<?php getkeywords("titles");?>" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-          
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="css/contact.css" rel='stylesheet' type='text/css' />
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/fontawesome-all.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+	rel="stylesheet">
+</head>
 
-	<h3>Contact Us</h3>
-	<hr></hr>
-		<?php if(!empty($statusMsg)){ ?>
-        <p><?php echo "<h3><font color='blue'>".$statusMsg."</font></h3>"; ?></p>
-    <?php } ?>
-    <form action="" method="post">
-        <h4>Name</h4>
-        <input type="text" class="form form-control" name="name" placeholder="Your Name" required="">
-        <h4>Email </h4>
-        <input type="email" class="form form-control" name="email" placeholder="email@example.com" required="">
-		
-		<h4>Mobile </h4>
-        <input type="text" class="form form-control" name="mob" placeholder="" required="">
-		
-        <h4>Subject</h4>
-        <input type="text" class="form form-control" name="subject" placeholder="Write subject" required="">
-        <h4>Message</h4>
-        <textarea name="message" class="form form-control" rows="8" placeholder="Write your message here" required> </textarea>
-      <input type="submit" style="float:left;margin:8px 0px 0px 2px;width:10%;padding:9px;" name="send" value="Send">
-      
-    </form>
+<body>
+	<!--Header-->
+	<?php include("header.php");?>
+	<!--//header-->
+	<!--/banner-->
+	<div class="banner-inner">
+	</div>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="index.php">Home</a>
+		</li>
+		<li class="breadcrumb-item active">Contact</li>
+	</ol>
+	<!--//banner-->
+	<!--/main-->
+	<section class="main-content-w3layouts-agileits">
 
-	
-	
-	
+		<h3 class="tittle">Contact Us</h3>
+		<p class="sub text-center">We love to discuss your idea</p>
+		<div class="contact-map inner-sec">
+
+			<iframe src="<?php getcontacts("titles","4");?>"
+				class="map" style="border:0" allowfullscreen=""></iframe>
+			</div>
+			<div class="ad-inf-sec bg-light">
+				<div class="container">
+					<div class="address row">
+
+						<div class="col-lg-4 address-grid">
+							<div class="row address-info">
+								<div class="col-md-4 address-left text-center">
+									<i class="far fa-map"></i>
+								</div>
+								<div class="col-md-8 address-right text-left">
+									<h6>Address</h6>
+									<p> <?php getcontacts("titles","1");?>
+
+									</p>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-4 address-grid">
+							<div class="row address-info">
+								<div class="col-md-4 address-left text-center">
+									<i class="far fa-envelope"></i>
+								</div>
+								<div class="col-md-8 address-right text-left">
+									<h6>Email</h6>
+									<p>
+										<a href="mailto:<?php getcontacts("titles","2");?>"><?php getcontacts("titles","2");?></a></p>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-lg-4 address-grid">
+								<div class="row address-info">
+									<div class="col-md-4 address-left text-center">
+										<i class="fas fa-mobile-alt"></i>
+									</div>
+									<div class="col-md-8 address-right text-left">
+										<h6>Phone</h6>
+										<p><?php getcontacts("titles","3");?></p>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--//main-->
+			<!--footer-->
+			<?php include("footer.php");?>
+			<!---->
+			<!-- js -->
+			<script src="js/jquery-2.2.3.min.js"></script>
+			<!-- //js -->
+			<!--/ start-smoth-scrolling -->
+			<script src="js/move-top.js"></script>
+			<script src="js/easing.js"></script>
+			<script>
+				jQuery(document).ready(function ($) {
+					$(".scroll").click(function (event) {
+						event.preventDefault();
+						$('html,body').animate({
+							scrollTop: $(this.hash).offset().top
+						}, 900);
+					});
+				});
+			</script>
+			<!--// end-smoth-scrolling -->
+
+			<script>
+				$(document).ready(function () {
+			/*
+									var defaults = {
+							  			containerID: 'toTop', // fading element id
+										containerHoverID: 'toTopHover', // fading element hover id
+										scrollSpeed: 1200,
+										easingType: 'linear' 
+							 		};
+							 		*/
+
+							 		$().UItoTop({
+							 			easingType: 'easeOutQuart'
+							 		});
+
+							 	});
+							 </script>
+							 <a href="#home" class="scroll" id="toTop" style="display: block;">
+							 	<span id="toTopHover" style="opacity: 1;"> </span>
+							 </a>
+
+							 <!-- //Custom-JavaScript-File-Links -->
+							 <script src="js/bootstrap.js"></script>
+
+
+							</body>
+
+							</html>
