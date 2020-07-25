@@ -1,23 +1,120 @@
-<?php
+<?php require('includes/config.php'); ?>
+    <!DOCTYPE html>
+    <html>
 
-include('config/config.php');
-include('lib/app.lib.php');
+    <head>
+        <title>softAOX - Blog</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name='keywords' content='softaox, blog, dynmaic blog, create blog in php, mysql blog'>
+        <meta name='description' content='softaox blog dynamic creation for post'>
+        <meta name='copyright' content='softAOX'>
+        <meta name='language' content='en'>
+        <meta name='robots' content='index,follow'>
+       <!--css-->
+        <link href="assets/css/master.css" rel="stylesheet" type="text/css">
+        <!--jquery-->
+        <link rel="icon" type="image/png" href="assets/images/favicon.ico" sizes="16x16">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="assets/js/general.js" type="text/javascript"></script>
+    </head>
 
-$vue='home';
-$title = 'Mon super Blog !!!!!';
-try
-{
-	//Fonction connectBdd() dans le fichier core/utilities.php
-	$dbh = connexion();
+    <body class="bg">
+        <div class="top-line">
+        </div>
+        <!--end of line-->
+        <div class="top-bar">
+            <div class="logo">
+                <a href="./"><img src="assets/images/softaox_blog.svg" /></a>
+            </div>
+            <!--end of logo-->
 
-	$sql  ='SELECT * FROM article INNER JOIN user ON user.user_id = article.art_user_id';
-	$sth = $dbh->prepare($sql);
-	$sth->execute();
-	$articles = $sth->fetchAll(PDO::FETCH_ASSOC);
-}
-catch (PDOException $e)
-{
-	$erreur = 'Erreur base de données : '.$e->getMessage();
-}
+            <?php include ('includes/navbar.php'); ?>
+                <!--end navbar -->
 
-include('tpl/layout.phtml');
+        </div>
+        <!--end of top bar-->
+        <div class="all-container">
+            <div class="row nopadding">
+
+                <div class="col-md-12 nopadding">
+                    <div class="col-md-7 nopadding">
+                        <div class="blog-listing">
+
+                            <?php       
+					try {
+
+					$pages = new Paginator('4','p');
+
+					$stmt = $db->query('SELECT postID FROM sa_posts');
+
+					//pass number of records to
+					$pages->set_total($stmt->rowCount());
+
+					$stmt = $db->query('SELECT * FROM sa_posts ORDER BY postID DESC '.$pages->get_limit());
+					while($row = $stmt->fetch()){
+
+                    echo '<div class="blog-listing-one">';
+
+			           echo '<h2><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></h2>'; 
+                       echo  '<div class="blog-listing-one-img">';
+                        echo  '<a href="'.$row['postSlug'].'"><img src="admin/uploads/'.$row['image'].'" width="100%"></a>';
+                        echo '</div>';
+
+                        echo'<div class="blog-listing-one-like-bookmark">';
+                            echo '<ul>';
+                              echo '<li><i class="fa fa-calendar" aria-hidden="true"></i><span> On:</span> '.date('jS M Y', strtotime($row['postDate'])).'</li>';
+
+							  $stmt2 = $db->prepare('SELECT catTitle, catSlug FROM sa_categories, sa_post_categories WHERE sa_categories.catID = sa_post_categories.catID AND sa_post_categories.postID = :postID');
+								$stmt2->execute(array(':postID' => $row['postID']));
+
+								$catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+								$links = array();
+								foreach ($catRow as $cat)
+								{
+								    $links[] = "<a href='c-".$cat['catSlug']."'>".$cat['catTitle']."</a>";
+								}
+
+							   echo '<li><i class="fa fa-folder-open"></i><span> Category: </span>'.implode(", ", $links).'</li>';
+
+                           echo '</ul>';
+                        echo '</div>';
+
+                        echo '<p>'.$row['postDesc'].'</p>';
+
+                        echo '<a href="'.$row['postSlug'].'" class="btn-readmore">Continue Reading</a>'; 
+
+                     echo '</div>';
+
+					}
+
+					echo $pages->page_links();
+
+				} catch(PDOException $e) {
+				    echo $e->getMessage();
+				}
+
+		          ?>
+                        </div>
+                        <!--end of blog listing-->
+                    </div>
+                    <!--end of col-md-7-->
+
+                    <div class="col-md-5 nopadding padding-left">
+                        <div id='sidebar'>
+                            <?php require('sidebar.php'); ?>
+                        </div>
+                    </div>
+
+                    <!--end of col-05-->
+                </div>
+                <!--end of col-md-12-->
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of all container-->
+        <?php include ('includes/footer.php'); ?>
+            <!--end of footer-->
+    </body>
+
+    </html>

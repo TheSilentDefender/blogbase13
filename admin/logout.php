@@ -1,10 +1,9 @@
 <?php
-session_start();
-/** On modifie les variable de sssion puis on les supprime ! */
-$_SESSION['connect'] = false;
-$_SESSION['user'] = '';
-unset($_SESSION['connect']);
-unset($_SESSION['user']);
+//include config
+require_once('../includes/config.php');
 
+//log user out
+$user->logout();
+header('Location: index.php'); 
 
-header('Location:login.php');
+?>
