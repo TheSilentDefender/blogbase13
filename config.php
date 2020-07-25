@@ -3,9 +3,9 @@ error_reporting(1);
 if ($_SERVER['HTTP_HOST'] == 'localhost')
 {
 $HostName="localhost";
-$UserName="root";
-$PassWord="";
-$DatabaseName="online_news";
+$UserName="user";
+$PassWord="password";
+$DatabaseName="blog";
 
 mysql_connect("$HostName", "$UserName", "$PassWord") or die(mysql_error());
 mysql_select_db("$DatabaseName") or die(mysql_error());	
