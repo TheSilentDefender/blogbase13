@@ -3,8 +3,8 @@ error_reporting(1);
 if ($_SERVER['HTTP_HOST'] == 'localhost')
 {
 $HostName="localhost";
-$UserName="user";
-$PassWord="password";
+$UserName="root";
+$PassWord="";
 $DatabaseName="base13";
 
 mysql_connect("$HostName", "$UserName", "$PassWord") or die(mysql_error());
