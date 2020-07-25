@@ -4,9 +4,9 @@ session_start();
 
 //database credentials
 define('db_host','localhost');
-define('db_user','root');
-define('db_pass','');
-define('db_name','secure_blog');
+define('db_user','user');
+define('db_pass','password');
+define('db_name','blog');
 
 $db = new PDO("mysql:host=".db_host.";port=8889;dbname=".db_name, db_user, db_pass);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
