@@ -1,4 +1,4 @@
 
                 <footer class="footer text-right">
-                   2018 © Developed by PHPGurukul.
+                   2020 © 13ase
                 </footer>
