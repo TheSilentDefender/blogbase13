@@ -11,8 +11,8 @@
 Please edit the database info to yours
 */
 $db_host		= "localhost";
-$db_user		= "root";
-$db_pass		= "";
+$db_user		= "user";
+$db_pass		= "password";
 $db_database	= "base13";
 include "idiorm.php";
 /* End config */
