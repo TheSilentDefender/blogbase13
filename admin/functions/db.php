@@ -7,9 +7,9 @@
 
 
         $db['db_host'] = 'localhost';
-        $db['db_user'] = 'root';
-        $db['db_pass'] = 'Sabc123*';
-        $db['db_name'] = 'Company';
+        $db['db_user'] = 'user';
+        $db['db_pass'] = 'password';
+        $db['db_name'] = 'blog';
 
       foreach($db as $key=>$value){
           define(strtoupper($key),$value);
