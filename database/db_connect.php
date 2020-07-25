@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","blog_admin_db");
+$con=mysqli_connect("localhost","root","","base13");
 // Check connection
 if (mysqli_connect_errno())
   {
