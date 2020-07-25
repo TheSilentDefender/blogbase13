@@ -1,153 +1,151 @@
-<!--
-author: Ethredah
-author URL: http://ethredah.github.io
--->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link rel="icon" href="images/icon.png">
-<title>Title</title>
-<!-- custom-theme -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Coalition Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //custom-theme -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<!-- js -->
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<!-- //js -->
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
-<!-- font-awesome-icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- //font-awesome-icons -->
-<link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<!-- banner -->
-	<div class="banner">
-		<div class="container">
-			<div class="w3_agile_banner_top">
-				<div class="agile_phone_mail">
-					<ul>
-						<li><i class="fa fa-phone" aria-hidden="true"></i>+(254) 002 100 500</li>
-						<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@Companyonline.net">info@example.com</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="agileits_w3layouts_banner_nav">
-				<nav class="navbar navbar-default">
-					<div class="navbar-header navbar-left">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<h1><a class="navbar-brand" href="index.php"><img src="images/logo.png" class="img-responsive"></a></h1>
-					</div>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-						<nav class="cl-effect-13" id="cl-effect-13">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.php">Home</a></li>
-							<li><a href="about.php">About</a></li>
-							<li><a href="portfolio.php">Products</a></li>
-							<li><a href="blog.php">Blog</a></li>
-							<li><a href="contact.php">Contact</a></li>
-						</ul>
-						
-					</nav>
-
-					</div>
-				</nav>
-			</div>
-			<div class="wthree_banner_info">
-				
-				<section class="slider">
-					<div class="flexslider">
-						<ul class="slides">
-							<li>
-								<h3>Lorem ipsum dolor ..?</h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Our Mission.. </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Lorem ipsum dolor </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-							
-							</li>
-							<li>
-								<h3>Our Vision... </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Lorem ipsum dolor? </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p> <i style="color: orange;">--find out more</i>
-								
-							</li>
-						</ul>
-					</div>
-				</section>
-				<!-- flexSlider -->
-					<script defer src="js/jquery.flexslider.js"></script>
-					<script type="text/javascript">
-					$(window).load(function(){
-					  $('.flexslider').flexslider({
-						animation: "slide",
-						start: function(slider){
-						  $('body').removeClass('loading');
-						}
-					  });
-					});
-				  </script>
-				<!-- //flexSlider -->
-			</div>
+<?php include "header.php"; ?>  
+<!-- End Site Header --> 
+  <!-- Start Hero Slider -->
+  <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
+    <ul class="slides">
+        <?php
+				$result = $db->prepare("SELECT * FROM slider");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){   
+               ?> 
+      <li class=" parallax" style="background-image:url(uploads/slider/<?php echo $row['file'];?>);"></li>
+                                <?php } ?>
+    </ul>
+  </div>
+  <!-- End Hero Slider --> 
+  <!-- Start Notice Bar -->
+  <div class="notice-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-title"> <span class="notice-bar-title-icon hidden-xs"><i class="fa fa-calendar fa-3x"></i></span> <span class="title-note">Next</span> <strong>Upcoming Event</strong> </div>
+        <?php
+				$result = $db->prepare("SELECT * FROM events ORDER BY id DESC Limit 1");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){   
+               ?> 
+		<div class="col-md-3 col-sm-6 col-xs-6 notice-bar-event-title">
+          <h5><a href="event-detail.php?id=<?php echo $row['id'];?>"><?php echo $row['title']; ?></a></h5>
+          <span class="meta-data"><?php echo $row['venue']; ?></span> </div>
+        <div id="counter" class="col-md-4 col-sm-6 col-xs-12 counter" data-date="July 13, 2016">
+          <div class=""> <span ><?php echo $row['date']; ?></span> </div>
+          
+        
 		</div>
-	</div>
-<!-- //banner -->
-
-<!-- content -->
-<div class="process all_pad agileits">
-	
-	<?php
-				if (isset($_GET["subscribed"])) {
-					echo 
-					'<div class="alert alert-success" >
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-                         <strong>SUBSCRIBED!! </strong><p> Thank you for subscribing with us. We will keep you informed on what is happening with Company.</p>
-                    </div>'
-					;
-				}
-				elseif (isset($_GET["fail"])) {
-					echo 
-					'<div class="alert alert-danger" >
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-                         <strong>Ooops!! </strong><p> Looks like you are already subscribed to our mailing list :) </p>
-                    </div>'
-					;
-				}
-			?>	
-
-</div>	
-<!-- //process -->
-
-
-
-<!-- footer -->
-	
-	<?php 
-		include("footer.php");
-	?>
-
+		<?php } ?>
+        <div class="col-md-2 col-sm-6 hidden-xs"> <a href="events.php" class="btn btn-primary btn-lg btn-block">All Events</a> </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Notice Bar --> 
+  <!-- Start Content -->
+  <div class="main" role="main">
+    <div id="content" class="content full">
+      <div class="container">
+        <div class="row"> 
+          <!-- Start Featured Blocks -->
+          
+          <!-- End Featured Blocks --> 
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-sm-6"> 
+            <!-- Events Listing -->
+            <div class="listing events-listing">
+              <header class="listing-header">
+                <h3 class=" titles">Welcome to eBlog</h3>
+              </header>
+			  <?php
+				$result = $db->prepare("SELECT * FROM welcome");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+				?>  
+<?php echo $row['body']; ?>             
+			  <?php } ?>
+            </div>
+            <div class="spacer-30"></div>
+            <!-- Latest News -->
+            <div class="listing post-listing">
+              <header class="listing-header">
+                <h3 class="titles">Latest News</h3></header>
+              <section class="listing-cont">
+                <ul>
+				<li class="item post">
+                    <div class="row">
+                      <div class="col-md-12">
+					  <?php
+				$result = $db->prepare("SELECT * FROM news ORDER BY id DESC Limit 3");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){   
+               ?> 
+                        <div class="post-title">
+                          <h2 class=" titles"><a href="news_post.php?id=<?php echo $row['id'];?>"><?php echo $row['news_title']; ?></a></h2>
+                          <span class="meta-data"><i class="fa fa-calendar"></i> on <?php echo $row['date']; ?></span>
+						 <p><?php echo strip_tags(substr($row['news_detail'],0,180)) ;?>...</p>
+						 </div>
+						<?php } ?>
+                      </div>
+                    </div>
+					 <center> -- <a href="news-updates.php">All News</a> --</center>
+                  </li>
+                </ul>
+              </section>
+			 </div>
+          </div>
+          <!-- Start Sidebar -->
+          <div class="col-md-4 col-sm-6">
+            <!-- Latest Sermons -->
+            <div class="listing sermons-listing">
+              <header class="listing-header">
+              </header>
+              <section class="listing-cont">
+                <ul>
+                  <li class="item sermon featured-sermon"> <span class="date"></span>
+                    <h4><a href="#">Like Us on Facebook</a></h4>
+					<?php
+                            //include('../connect.php');
+				$result = $db->prepare("SELECT * FROM settings");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+               ?> 
+                    <div class="featured-sermon-video">
+                      <!--Facebook Page-->
+                      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fcodeprojectsdotorg%2F&tabs=timeline&width=214&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="214" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+								</div> <?php } ?>
+                  </li>
+                  <li class="item post">
+                    <div class="row">
+                      <div class="col-md-12"> <a href="donate.php" class="media-box"> <img src="images/giving.jpg" alt="" class="img-thumbnail"> </a></div>
+                     </div>
+                  </li>
+				   <li class="item post">
+                    <div class="row">
+                      <div class="col-md-12"> <a href="gallery.php" class="media-box"> <img src="images/gallery.jpg" alt="" class="img-thumbnail"> </a></div>
+                     </div>
+                  </li>
+                 </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start Featured Gallery -->
+  <div class="featured-gallery">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-3">
+          <h4>Updates from our gallery</h4>
+          <a href="gallery.php" class="btn btn-default btn-lg">More Galleries</a> </div>
+		  <?php
+				$result = $db->prepare("SELECT * FROM gallery ORDER BY id DESC Limit 3");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){   
+               ?> 
+        <div class="col-md-3 col-sm-3 post format-image"> <a href="uploads/<?php echo $row['file'];?>" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="uploads/<?php echo $row['file'];?>" alt=""> </a> </div>
+        <?php } ?>
+		</div>
+    </div>
+  </div>
+  <!-- End Featured Gallery --> 
+  <!-- Start Footer -->
+  <?php include "footer.php"; ?>

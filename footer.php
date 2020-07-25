@@ -1,43 +1,75 @@
 
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row"> 
+        <!-- Start Footer Widgets -->
+        <div class="col-md-4 col-sm-4 widget footer-widget">
+          <h4 class="footer-widget-title">About </h4>
+          <img src="images/logo.png" alt="Logo">
+		  <?php
+				$result = $db->prepare("SELECT * FROM welcome");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+				?>  
+          <div class="spacer-20"></div>
+        <?php echo strip_tags(substr($row['body'],0,180)) ;?>...  <a href="about.php">Read More</a>
+		  <?php } ?>
+		</div>
+        <div class="col-md-4 col-sm-4 widget footer-widget">
+          <h4 class="footer-widget-title">Quick Links</h4>
+          <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="events.php">All Events</a></li>
+            <li><a href="news-updates.php">News Update</a></li>
+            <li><a href="contact.php">Contact Us</a></li>
+          </ul>
+        </div>
+		 <?php
+                            //include('../connect.php');
+				$result = $db->prepare("SELECT * FROM settings");
+				$result->execute();
+				for($i=0; $row = $result->fetch(); $i++){
+               ?> 
+        <div class="col-md-4 col-sm-4 widget footer-widget">
+          <h4 class="footer-widget-title">Contact Information</h4>
+          <?php echo $row['phone']; ?> </br>
+		  <?php echo $row['linkedin']; ?></br>
+		 <?php echo $row['email']; ?>
+        </div>
+		
+      </div>
+    </div>
+  </footer>
+  <footer class="site-footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="copyrights-col-left col-md-6 col-sm-6">
+          <p>&copy; 2018 eBlog</p>
+        </div>
+        <div class="copyrights-col-right col-md-6 col-sm-6">
+          <div class="social-icons"> <a href="https://www.facebook.com/<?php echo $row['facebook']; ?>" target="_blank"><i class="fa fa-facebook"></i></a> <a href="https://twitter.com/<?php echo $row['twitter']; ?>" target="_blank"><i class="fa fa-twitter"></i></a> <a href="https://instagram.com/<?php echo $row['status']; ?>" target="_blank"><i class="fa fa-instagram"></i></a></div>
+        </div>
+      </div>
+    </div>
+	<?php } ?>
+  </footer>
+  <!-- End Footer --> 
+  <a id="back-to-top"><i class="fa fa-angle-double-up"></i></a> 
+</div>
+<script src="js/jquery-2.0.0.min.js"></script> <!-- Jquery Library Call --> 
+<script src="plugins/prettyphoto/js/prettyphoto.js"></script> <!-- PrettyPhoto Plugin --> 
+<script src="js/helper-plugins.js"></script> <!-- Plugins --> 
+<script src="js/bootstrap.js"></script> <!-- UI --> 
+<script src="js/waypoints.js"></script> <!-- Waypoints --> 
+<script src="plugins/mediaelement/mediaelement-and-player.min.js"></script> <!-- MediaElements --> 
+<script src="js/init.js"></script> <!-- All Scripts --> 
+<script src="plugins/flexslider/js/jquery.flexslider.js"></script> <!-- FlexSlider --> 
+<script src="plugins/countdown/js/jquery.countdown.min.js"></script> <!-- Jquery Timer --> 
+<script src="style-switcher/js/jquery_cookie.js"></script> 
+<script src="style-switcher/js/script.js"></script> 
 
-<div class="footer">
-		<div class="col-md-4 footer-left-agileits">
-			<h3>Address</h3>
-				<ul>
-					<li><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Woodvale Grove, Westlands - Nairobi, Kenya</li>
-					<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:info@Companyonline.net">info@example.com</a></li>
-					<!-- <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +(254) 754 235 535</li> -->
-				</ul>
-		</div>
-		<div class="col-md-4 footer-left-agileinfo">
-			<h3>Get In Touch</h3>
-			<p>Follow us, Tweet us, Tag us, Pin us.</p>
-				<ul class="social-icons">
-					<li><a href="#" class="icon icon-border facebook"></a></li>
-					<li><a href="#" class="icon icon-border twitter"></a></li>
-					<li><a href="#" class="icon icon-border instagram"></a></li>
-					<li><a href="#" class="icon icon-border pinterest"></a></li>
-				</ul>
-		</div>
-		<div class="col-md-4 footer-left-w3-agileits">
-			<h3>Newsletter</h3>
-			<p>Subscribe to our newsletter and be the first to know what we are upto.</p>
-				<form action="functions/subscribe.php" method="post">
-					<input type="email" name="email" placeholder="Your email..." required="">
-					<input type="submit" value=" " name="submit">
-				</form>
-		</div>
-		<div class="clearfix"></div>
-	</div>
-<!-- //footer --> 
-	<div class="copyright-w3-agile">
-		<div class="container">
-			<p>© 2018 company | All rights reserved.</p>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-<!-- for bootstrap working -->
-	<script src="js/bootstrap.js"></script>
-<!-- //for bootstrap working -->
 </body>
+
+<!-- Mirrored from html.imithemes.com/nativechurch/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 09 Nov 2016 06:08:50 GMT -->
 </html>
