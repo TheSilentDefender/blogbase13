@@ -1,0 +1,53 @@
+@media screen and (max-width: 1023px) {
+ #block_navigation {
+ width: 340px;
+ margin: 10px auto;
+}
+#block_navigation ul li ul {
+ position: absolute;
+ left: -1px;
+ top: 100%;
+}
+ #block_navigation ul li ul li:first-child {
+ border-radius: 0;
+}
+ #block_navigation ul li ul li:last-child {
+ border-bottom-right-radius: 7px;
+ border-bottom-left-radius: 7px;
+}
+.typography_5_colm, .typography_3_colm, .typography_2_colm {
+ width: 100%;
+ position: absolute;
+ top: 100%;
+ left: 0px;
+ border: none;
+ border-radius: 0;
+ border-bottom-right-radius: 7px;
+ border-bottom-left-radius: 7px;
+}
+ .colm_5_container, .colm_3_container, .colm_2_container {
+ width: 300px;
+	/**height: 170px;**/
+	/**background: #fff;**/
+	margin-top: 20px;
+ margin-left: 20px;
+ margin-bottom: 30px;
+}
+ .colmn_1, .colmn_2, .colmn_3, .colmn_4, .colmn_5 {
+ width: 96.96%;
+ margin-bottom: 20px;
+ padding: 0;
+ padding-left: 1.52%;
+ padding-right: 1.52%;
+}
+ .colmn_4_fullwidth, .colmn_3_fullwidth, .colmn_2_fullwidth {
+ width: 96.96%;
+ margin-bottom: 20px;
+ padding: 0;
+ padding-left: 1.52%;
+ padding-right: 1.52%;
+}
+.image {
+ margin-bottom: 5px;
+}
+}
