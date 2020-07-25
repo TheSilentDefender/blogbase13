@@ -1,25 +1,32 @@
-# [Un blog en PHP]
-A simple blog system for learning PHP !
-Developement in progress !
 
-## Preview
-Coming soon !
 
-## Download and Installation
+### NATIVE PHP BLOG WITH ADMIN AND SQL DATABASE
 
-To begin using this blog system :
-* In your web folder make sure you do not have a blog directory
-* Clone the repo on your web folder : `git clone https://github.com/nienfba/blog.git` or download it !
-* Create Database `blog` on phpmyadmin and import `sql/blog.sql`
-* Configure file config/config.php.dist and rename to config.php
+This is a fully functional php application with a website (containing a blog section)
+and an Admin dashboard that monitors the blog posts, comments, messages from the contact page and newsletter subscribers...etc
 
-## Usage Admin
+###### _Admin Dashboard_
 
-* BackOffice :
-Login to http://localhost/blog/admin with email : login@user.fr and password : 123456
-* FrontOffice :
-Connect to http://localhost/blog/
+![alt text](screenshots/dashboard.png "Admin Dashboard")
 
-## Copyright and License
 
-Copyright 2018 Nienfba Code released under the [MIT] license.
+
+
+##### GETTING STARTED
+
+- Download or Clone the project.
+- Create a database named "Company" or a name of your choice and import the *SQL* file { Company.sql }
+- Set your database credentials in db.php
+- Run the project in your local server
+- Go to http://localhost/directory/admin/ to LogIn
+- Use the testing credentials to login 
+
+{
+	
+	email : admin@example.com
+	password : 123
+
+}
+
+
+>> Happy Coding :neckbeard:
