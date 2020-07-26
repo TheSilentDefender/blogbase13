@@ -37,7 +37,7 @@ echo "<script>alert('User not registered with us');</script>";
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="News Portal.">
+        <meta name="description" content="13ase.">
         <meta name="author" content="13ase">
 
 
