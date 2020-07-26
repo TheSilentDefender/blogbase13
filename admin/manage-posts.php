@@ -33,7 +33,7 @@ $error="Something went wrong . Please try again.";
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- App title -->
-        <title>Newsportal | Manage Posts</title>
+        <title>13ase | Manage Posts</title>
 
         <!--Morris Chart CSS -->
 		<link rel="stylesheet" href="../plugins/morris/morris.css">

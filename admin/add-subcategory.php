@@ -31,7 +31,7 @@ $error="Something went wrong . Please try again.";
 <html lang="en">
     <head>
 
-        <title>Newsportal | Add Sub Category</title>
+        <title>13ase | Add Sub Category</title>
 
         <!-- App css -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

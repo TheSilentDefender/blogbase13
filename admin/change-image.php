@@ -52,7 +52,7 @@ $error="Something went wrong . Please try again.";
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- App title -->
-        <title>Newsportal | Add Post</title>
+        <title>13ase | Add Post</title>
 
         <!-- Summernote css -->
         <link href="../plugins/summernote/summernote.css" rel="stylesheet" />

@@ -46,7 +46,7 @@ $error="Old Password not match !!";
 <html lang="en">
     <head>
 
-        <title>Newsportal | Add Category</title>
+        <title>13ase | Add Category</title>
 
         <!-- App css -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
