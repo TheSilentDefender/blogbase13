@@ -32,7 +32,7 @@ else
 //rename the image file
 $imgnewfile=md5($imgfile).$extension;
 // Code for move image into directory
-move_uploaded_file($_FILES["postimage"]["tmp_name"],"postimages/".$imgnewfile);
+move_uploaded_file($_FILES["postimage"]["tmp_name"],"postimages/");
 
 $status=1;
 $query=mysqli_query($con,"insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage) values('$posttitle','$catid','$subcatid','$postdetails','$url','$status','$imgnewfile')");
@@ -208,7 +208,7 @@ while($result=mysqli_fetch_array($ret))
 <div class="col-sm-12">
  <div class="card-box">
 <h4 class="m-b-30 m-t-0 header-title"><b>Feature Image</b></h4>
-<input type="file" class="form-control" id="postimage" name="postimage"  required>
+<input type="file" class="form-control" id="postimage" name="postimage">
 </div>
 </div>
 </div>
