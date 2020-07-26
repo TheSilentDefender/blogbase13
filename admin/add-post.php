@@ -1,23 +1,4 @@
-
 <?php 
-
-$tempFolder = ini_get('upload_tmp_dir');
- 
-echo 'Your upload_tmp_dir directive has been set to: "' . $tempFolder . '"<br>';
- 
-//Firstly, lets make sure that the upload_tmp_dir
-//actually exists.
-if(!is_dir($tempFolder)){
-    throw new Exception($tempFolder . ' does not exist!');
-} else{
-    echo 'The directory "' . $tempFolder . '" does exist.<br>';
-}
- 
-if(!is_writable($tempFolder)){
-    throw new Exception($tempFolder . ' is not writable!');
-} else{
-    echo 'The directory "' . $tempFolder . '" is writable. All is good.<br>';
-}
 session_start();
 include('includes/config.php');
 error_reporting(0);
