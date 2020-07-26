@@ -3,7 +3,7 @@
 
 
 $requestType = $_SERVER['REQUEST_METHOD'];
-if($requestType = 'POST'){
+if(false){
     echo 'Request type was ' . $requestType . ' - File uploads will only work with POST. Are you using method="post" in your form element?<br>';
     exit;
 } else{
