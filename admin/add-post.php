@@ -1,5 +1,6 @@
 
 <?php 
+
 $tempFolder = ini_get('upload_tmp_dir');
  
 echo 'Your upload_tmp_dir directive has been set to: "' . $tempFolder . '"<br>';
