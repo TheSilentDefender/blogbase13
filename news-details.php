@@ -80,8 +80,7 @@ while ($row=mysqli_fetch_array($query)) {
                 <b>Sub Category : </b><?php echo htmlentities($row['subcategory']);?> <b> Posted on </b><?php echo htmlentities($row['postingdate']);?></p>
                 <hr />
 
- <img class="img-fluid rounded" src="admin/postimages/<?php echo htmlentities($row['PostImage']);?>" alt="<?php echo htmlentities($row['posttitle']);?>">
-  
+                /*<img class="img-fluid rounded" src="admin/postimages/<?php echo htmlentities($row['PostImage']);?>" alt="<?php echo htmlentities($row['posttitle']);?>">*/
               <p class="card-text"><?php 
 $pt=$row['postdetails'];
               echo  (substr($pt,0));?></p>
