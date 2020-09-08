@@ -203,7 +203,7 @@ while($result=mysqli_fetch_array($ret))
 </div>
 </div>
 
-
+<!--
 <div class="row">
 <div class="col-sm-12">
  <div class="card-box">
@@ -212,7 +212,7 @@ while($result=mysqli_fetch_array($ret))
 </div>
 </div>
 </div>
-
+-->
 
 <button type="submit" name="submit" class="btn btn-success waves-effect waves-light">Save and Post</button>
  <button type="button" class="btn btn-danger waves-effect waves-light">Discard</button>
